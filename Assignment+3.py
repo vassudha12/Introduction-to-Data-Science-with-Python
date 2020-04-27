@@ -241,11 +241,14 @@ answer_eight()
 # In[48]:
 
 def answer_nine():
+    import pandas as pd
+    import numpy as np
     Top15 = answer_one()
     Top15['PopEstimate'] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
     Top15['Citable docs per Capita'] = Top15['Citable documents'] / Top15['PopEstimate']
-    correlation = Top15['Citable docs per Capita'].corr(Top15['Energy Supply per Capita'])
-    return correlation
+    data = Top15[['Citable docs per Capita','Energy Supply per Capita']].corr()
+    correlation = data.corr(method='pearson')
+    return data.get_value('Energy Supply per Capita','Energy Supply per Capita')
 
 answer_nine()
 
